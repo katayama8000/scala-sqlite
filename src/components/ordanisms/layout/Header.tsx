@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { memo, useCallback, VFC } from "react";
+import { memo, useCallback, VFC } from "react";
 import { Box, Flex, Heading, Link, useDisclosure } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 
@@ -12,8 +11,12 @@ export const Header: VFC = memo(() => {
   const history = useHistory();
 
   const onClickHome = useCallback(() => history.push("/home"), []);
-  const onClickUserManagement = useCallback(() => history.push("/home/user_management"),[]);
+  const onClickUserManagement = useCallback(
+    () => history.push("/home/user_management"),
+    []
+  );
   const onClickSetting = useCallback(() => history.push("/home/setting"), []);
+  const onClickCrop = useCallback(() => history.push("/home/crop"), []);
 
   return (
     <>
@@ -45,8 +48,11 @@ export const Header: VFC = memo(() => {
           <Box pr={4}>
             <Link onClick={onClickUserManagement}>ユーザー一覧</Link>
           </Box>
-          <Box>
+          <Box pr={4}>
             <Link onClick={onClickSetting}>設定</Link>
+          </Box>
+          <Box>
+            <Link onClick={onClickCrop}>画像切り抜き</Link>
           </Box>
         </Flex>
         <MenuIconButton onOpen={onOpen} />

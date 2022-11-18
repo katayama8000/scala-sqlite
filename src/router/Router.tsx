@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import { Login } from "../components/pages/Login";
 import { HomeRoutes } from "./HomeRoutes";
 import { Page404 } from "../components/pages/Page404";
+import { ImageCrop } from "../components/pages/ImageCrop";
 import { HeaderLayout } from "../components/templates/HeaderLayout";
 
 export const Router: VFC = memo(() => {
@@ -28,6 +29,9 @@ export const Router: VFC = memo(() => {
           </Switch>
         )}
       ></Route>
+      <Route path="/crop">
+        <ImageCrop />
+      </Route>
       <Route path="*">
         <Page404 />
       </Route>

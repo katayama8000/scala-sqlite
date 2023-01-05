@@ -5,6 +5,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>this is first</Text>
+      <View style={styles.itemContainer}>
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -17,4 +19,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  itemContainer: {
+    height: 100,
+    width: "100%",
+    borderColor: "red",
+    borderWidth: 1,
+  }
 });

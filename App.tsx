@@ -49,7 +49,7 @@ export default function App() {
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
         console.log(response);
-        setCountTap(countTap + 1);
+        setCountTap((prev) => prev + 1);
       });
 
     return () => {

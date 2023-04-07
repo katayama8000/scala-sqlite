@@ -33,10 +33,12 @@ export default function App() {
   const responseListener = useRef<Subscription>();
 
   useEffect(() => {
+    // 通知を受け取るためのトークンを取得する
     registerForPushNotificationsAsync().then((token) =>
       setExpoPushToken(token)
     );
 
+    // 通知を受け取ったときの処理
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification) => {
         setNotification(notification);
@@ -93,6 +95,7 @@ export default function App() {
   );
 }
 
+// 実際に通知を送る関数
 async function schedulePushNotification() {
   await Notifications.scheduleNotificationAsync({
     content: {
@@ -104,6 +107,7 @@ async function schedulePushNotification() {
   });
 }
 
+// 通知を受け取るためのトークンを取得する関数
 async function registerForPushNotificationsAsync() {
   let token: string;
 

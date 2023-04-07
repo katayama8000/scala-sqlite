@@ -29,6 +29,7 @@ export default function App() {
   const [notification, setNotification] = useState<boolean | Notification>(
     false
   );
+  const [countTap, setCountTap] = useState<number>(0);
   const notificationListener = useRef<Subscription>();
   const responseListener = useRef<Subscription>();
 
@@ -44,9 +45,11 @@ export default function App() {
         setNotification(notification);
       });
 
+    // 通知をタップしたときの処理
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
         console.log(response);
+        setCountTap(countTap + 1);
       });
 
     return () => {
@@ -81,6 +84,7 @@ export default function App() {
             JSON.stringify((notification as Notification).request.content.data)}
         </Text>
       </View>
+      <Text>通知タップ回数: {countTap}</Text>
       <Button
         title="Press to schedule a notification"
         onPress={async () => {

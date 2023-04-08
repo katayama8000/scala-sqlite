@@ -3,6 +3,7 @@ import { Text, View, Button, Platform } from 'react-native';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { Subscription } from 'expo-notifications';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -24,7 +25,17 @@ type Notification = {
   };
 };
 
-export function NotificationScreen({ navigation }) {
+type RootStackParamList = {
+  Home: undefined;
+  Details: { data: Record<string, unknown> };
+  Notification: undefined;
+};
+
+type Props = {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'Notification'>;
+};
+
+export function NotificationScreen({ navigation }: Props) {
   const [expoPushToken, setExpoPushToken] = useState<string>('');
   const [notification, setNotification] = useState<boolean | Notification>(
     false
@@ -49,6 +60,10 @@ export function NotificationScreen({ navigation }) {
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
         console.log(response);
+        // 通知をタップしたときに、画面遷移とdataを渡す
+        navigation.navigate('Details', {
+          data: response.notification.request.content.data,
+        });
         setCountTap((prev) => prev + 1);
       });
 

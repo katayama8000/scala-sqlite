@@ -1,4 +1,4 @@
-### ビルドの設定など面倒なので、ローカル検証用のレポジトリ。
+### ローカル検証用のレポジトリ。
 - push通知の検証
 - react-native-keyboard-aware-scroll-view
 

@@ -1,4 +1,7 @@
-ビルドの設定など面倒なので、ローカル検証用のレポジトリ。
+### ビルドの設定など面倒なので、ローカル検証用のレポジトリ。
+- push通知の検証
+- react-native-keyboard-aware-scroll-view
+
 
 
 # TypeScript Example
@@ -37,3 +40,4 @@ TypeScript is a superset of JavaScript which gives you static types and powerful
 ## 📝 Notes
 
 - [Expo TypeScript guide](https://docs.expo.dev/versions/latest/guides/typescript/)
+

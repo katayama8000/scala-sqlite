@@ -8,6 +8,10 @@ export function HomeScreen({ navigation }) {
         title="Go to Details"
         onPress={() => navigation.navigate('Details')}
       />
+      <Button
+        title="Go to Notification"
+        onPress={() => navigation.navigate('Notification')}
+      />
     </View>
   );
 }

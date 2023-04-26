@@ -5,21 +5,35 @@ import { DetailsScreen } from './pages/Detail';
 import { NotificationScreen } from './pages/Notification';
 import { List } from './pages/ List';
 
-export default function App() {
-  const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
+const RootStack = ({ initialRouteName }: { initialRouteName: string }) => {
+  return (
+    <Stack.Navigator
+      initialRouteName={initialRouteName}
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#f4511e',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold' },
+      }}
+    >
+      <Stack.Screen name="Notification" component={NotificationScreen} />
+      <Stack.Screen name="List" component={List} />
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen
+        name="Details"
+        component={DetailsScreen}
+        initialParams={{ itemId: 42, otherParam: 'anything you want here' }}
+      />
+    </Stack.Navigator>
+  );
+};
 
+export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="List" component={List} />
-        <Stack.Screen name="Notification" component={NotificationScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen
-          name="Details"
-          component={DetailsScreen}
-          initialParams={{ itemId: 42, otherParam: 'anything you want here' }}
-        />
-      </Stack.Navigator>
+      <RootStack initialRouteName="Home" />
     </NavigationContainer>
   );
 }

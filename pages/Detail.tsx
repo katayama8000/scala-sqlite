@@ -1,6 +1,8 @@
 import { Text, View, Button } from 'react-native';
 import type { RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback, useEffect } from 'react';
 
 type RootStackParamList = {
   Home: undefined;
@@ -20,6 +22,17 @@ type Props = {
 };
 
 export function DetailsScreen({ route, navigation }: Props) {
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     console.log('useFocusEffect');
+  //     return () => console.log('unmounting...');
+  //   }, [])
+  // );
+  useEffect(() => {
+    console.log('useEffect');
+    return () => console.log('unmounting...');
+  }, []);
+  console.log('re-render DetailsScreen');
   const { itemId, otherParam } = route.params;
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>

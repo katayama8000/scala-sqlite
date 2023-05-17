@@ -8,8 +8,8 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
   }),
 });
 
@@ -51,12 +51,14 @@ export function NotificationScreen({ navigation }: Props) {
     );
 
     // 通知を受け取ったときの処理
+    // このリスナーは、アプリがフォアグラウンドのときに通知を受け取るたびに起動されます
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification) => {
         setNotification(notification);
       });
 
     // 通知をタップしたときの処理
+    // このリスナーは、ユーザーが通知をタップまたは操作するたびに起動されます (アプリがフォアグラウンド、バックグラウンド、または強制終了されたときに機能します)
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
         console.log(response);

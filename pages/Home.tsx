@@ -1,7 +1,8 @@
-import { Link } from '@react-navigation/native';
+import { Link, useFocusEffect } from '@react-navigation/native';
 import { Text, View, Button } from 'react-native';
 import * as Linking from 'expo-linking';
 import * as Notifications from 'expo-notifications';
+import { useCallback, useEffect, useState } from 'react';
 
 export function HomeScreen({ navigation }) {
   // const func = (async () => {
@@ -9,9 +10,25 @@ export function HomeScreen({ navigation }) {
   //   console.log(str);
   //   return str;
   // })();
+  const [on, setOn] = useState(false);
 
+  useFocusEffect(
+    useCallback(() => {
+      console.log('useFocusEffect');
+      return () => console.log('unmount!!!');
+    }, [])
+  );
+
+  useEffect(() => {
+    console.log('useEffect');
+    return () => console.log('unmount!!!');
+  }, []);
   const urlHooks = Linking.useURL();
-  console.log('urlHooks', urlHooks);
+  // console.log('urlHooks', urlHooks);
+
+  const checkState = async () => {
+    console.log('on', on);
+  };
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen </Text>
@@ -30,6 +47,15 @@ export function HomeScreen({ navigation }) {
       <Link to="/list" style={{ color: 'red' }}>
         Link
       </Link>
+      <Text>{on ? 'on' : 'off'}</Text>
+      <Button
+        title="on"
+        onPress={() => {
+          setOn(!on);
+        }}
+      />
+      <Button title="check" onPress={checkState} />
+
       {/* <Button
         title="check"
         onPress={async () => {

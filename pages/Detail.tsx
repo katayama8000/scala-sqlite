@@ -1,8 +1,6 @@
 import { Text, View, Button } from 'react-native';
 import type { RouteProp } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useFocusEffect } from '@react-navigation/native';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
 type RootStackParamList = {
   Home: undefined;

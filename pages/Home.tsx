@@ -31,7 +31,7 @@ export function HomeScreen({ navigation }) {
       checkState();
     });
     return listener;
-  }, []);
+  }, [on]);
 
   const checkState = async () => {
     console.log('on', on);

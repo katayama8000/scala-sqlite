@@ -10,7 +10,7 @@ export function HomeScreen({ navigation }) {
   //   console.log(str);
   //   return str;
   // })();
-  const [on, setOn] = useState<boolean>(false);
+  const [on, setOn] = useState<boolean>(true);
 
   // useFocusEffect(
   //   useCallback(() => {
@@ -27,7 +27,6 @@ export function HomeScreen({ navigation }) {
   // console.log('urlHooks', urlHooks);
 
   useEffect(() => {
-    setOn(true);
     const listener = navigation.addListener('focus', () => {
       checkState();
     });

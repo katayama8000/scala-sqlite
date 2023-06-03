@@ -1,7 +1,5 @@
 import { Link, useFocusEffect } from '@react-navigation/native';
 import { Text, View, Button } from 'react-native';
-import * as Linking from 'expo-linking';
-import * as Notifications from 'expo-notifications';
 import { useCallback, useEffect, useState } from 'react';
 
 export function HomeScreen({ navigation }) {
@@ -9,6 +7,10 @@ export function HomeScreen({ navigation }) {
 
   useEffect(() => {
     setOn(true);
+    // イベントリスナーに登録されている関数はコンポーネントがマウント時のみに時に登録される
+    // Detailページに行って戻ってきた時は、Homeコンポーネントはマウントされているので、
+    // イベントリスナーに登録されている関数は実行されない
+    // そのため、Detailページに行って戻ってきた時に、onの値がfalseになることはない
     const listener = navigation.addListener('focus', () => {
       checkState();
     });

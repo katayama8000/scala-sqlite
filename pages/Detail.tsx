@@ -26,10 +26,10 @@ export function DetailsScreen({ route, navigation }: Props) {
   //     return () => console.log('unmounting...');
   //   }, [])
   // );
-  useEffect(() => {
-    console.log('useEffect');
-    return () => console.log('unmounting...');
-  }, []);
+  // useEffect(() => {
+  //   console.log('useEffect');
+  //   return () => console.log('unmounting...');
+  // }, []);
   console.log('re-render DetailsScreen');
   const { itemId, otherParam } = route.params;
   return (

@@ -10,21 +10,29 @@ export function HomeScreen({ navigation }) {
   //   console.log(str);
   //   return str;
   // })();
-  const [on, setOn] = useState(false);
+  const [on, setOn] = useState<boolean>(false);
 
-  useFocusEffect(
-    useCallback(() => {
-      console.log('useFocusEffect');
-      return () => console.log('unmount!!!');
-    }, [])
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     console.log('useFocusEffect');
+  //     return () => console.log('unmount!!!');
+  //   }, [])
+  // );
+
+  // useEffect(() => {
+  //   console.log('useEffect');
+  //   return () => console.log('unmount!!!');
+  // }, []);
+  // const urlHooks = Linking.useURL();
+  // console.log('urlHooks', urlHooks);
 
   useEffect(() => {
-    console.log('useEffect');
-    return () => console.log('unmount!!!');
+    setOn(true);
+    const listener = navigation.addListener('focus', () => {
+      checkState();
+    });
+    return listener;
   }, []);
-  const urlHooks = Linking.useURL();
-  // console.log('urlHooks', urlHooks);
 
   const checkState = async () => {
     console.log('on', on);

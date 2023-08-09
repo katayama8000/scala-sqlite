@@ -1,4 +1,13 @@
 {
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "version": "1.0.0",
+  "private": true,
+  "name": "expo-typescript",
   "dependencies": {
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
@@ -18,15 +27,7 @@
     "@babel/core": "^7.19.3",
     "@types/react": "~18.0.24",
     "@types/react-native": "~0.70.6",
+    "prettier": "^3.0.1",
     "typescript": "^4.6.3"
-  },
-  "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
-  },
-  "version": "1.0.0",
-  "private": true,
-  "name": "expo-typescript"
+  }
 }

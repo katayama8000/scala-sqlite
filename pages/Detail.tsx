@@ -1,19 +1,20 @@
 import { Text, View, Button } from 'react-native';
 import type { RouteProp } from '@react-navigation/native';
+import { FC } from 'react';
 
 type RootStackParamList = {
   Home: undefined;
-  Details: { itemId: number; otherParam: string; age: number };
+  Detail: { itemId: number; otherParam: string; age: number };
 };
 
-type DetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
+type DetailScreenRouteProp = RouteProp<RootStackParamList, 'Detail'>;
 
 type Props = {
-  route: DetailsScreenRouteProp;
+  route: DetailScreenRouteProp;
   navigation: any;
 };
 
-export function DetailsScreen({ route, navigation }: Props) {
+export const DetailScreen: FC<Props> = ({ route, navigation }) => {
   const { itemId, otherParam, age } = route.params;
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -21,9 +22,9 @@ export function DetailsScreen({ route, navigation }: Props) {
       <Text>otherParam: {JSON.stringify(otherParam)}</Text>
       <Text>age: {JSON.stringify(age)}</Text>
       <Button
-        title="Go to Details... again"
+        title="Go to Detail... again"
         onPress={() =>
-          navigation.navigate('Details', {
+          navigation.navigate('Detail', {
             itemId: Math.floor(Math.random() * 100),
             otherParam: 'I am japanese',
             age: 20,
@@ -34,4 +35,4 @@ export function DetailsScreen({ route, navigation }: Props) {
       <Button title="Go back" onPress={() => navigation.goBack()} />
     </View>
   );
-}
+};

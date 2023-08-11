@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, TextInput, View, StyleSheet, Button } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
-export const List = ({ navigation }) => {
+export const ListScreen = ({ navigation }) => {
   return (
     <KeyboardAwareScrollView extraHeight={100}>
       <View>

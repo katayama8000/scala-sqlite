@@ -27,7 +27,7 @@ type Notification = {
 
 type RootStackParamList = {
   Home: undefined;
-  Details: { data: Record<string, unknown> };
+  Detail: { data: Record<string, unknown> };
   Notification: undefined;
 };
 
@@ -63,7 +63,7 @@ export function NotificationScreen({ navigation }: Props) {
       Notifications.addNotificationResponseReceivedListener((response) => {
         console.log(response);
         // 通知をタップしたときに、画面遷移とdataを渡す
-        navigation.navigate('Details', {
+        navigation.navigate('Detail', {
           data: response.notification.request.content.data,
         });
         setCountTap((prev) => prev + 1);
@@ -82,8 +82,7 @@ export function NotificationScreen({ navigation }: Props) {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'space-around',
-      }}
-    >
+      }}>
       <Text>Your expo push token: {expoPushToken}</Text>
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
         <Text>

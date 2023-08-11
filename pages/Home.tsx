@@ -1,12 +1,12 @@
 import { Link } from '@react-navigation/native';
 import { View, Button } from 'react-native';
 
-export function HomeScreen({ navigation }) {
+export const HomeScreen = ({ navigation }) => {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
+        title="Go to Detail"
+        onPress={() => navigation.navigate('Detail')}
       />
       <Button
         title="Go to Notification"
@@ -26,4 +26,4 @@ export function HomeScreen({ navigation }) {
       /> */}
     </View>
   );
-}
+};

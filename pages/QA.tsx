@@ -23,8 +23,8 @@ export function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate('Details')}
+        title="Go to Detail"
+        onPress={() => navigation.navigate('Detail')}
       />
       <Link to="/list" style={{ color: 'red' }}>
         Link

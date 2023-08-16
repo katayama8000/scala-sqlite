@@ -1,4 +1,8 @@
-import { LinkingOptions, NavigationContainer } from '@react-navigation/native';
+import {
+  LinkingOptions,
+  NavigationContainer,
+  useNavigation,
+} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Linking from 'expo-linking';
 import * as Notifications from 'expo-notifications';
@@ -33,6 +37,7 @@ type Props = {
 };
 
 export const Navigation: React.FC<Props> = ({ onReady }) => {
+  const navigation = useNavigation();
   return (
     <NavigationContainer
       onReady={onReady}
@@ -59,6 +64,12 @@ export const Navigation: React.FC<Props> = ({ onReady }) => {
                 (async () => {
                   const url =
                     notificationResponse.notification.request.content.data.url;
+
+                  console.log(
+                    '---------------------',
+                    notificationResponse.notification.request.content,
+                    '----------------------'
+                  );
 
                   // Let React Navigation handle the URL
                   listener(url);

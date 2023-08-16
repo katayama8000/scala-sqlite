@@ -59,15 +59,15 @@ export function NotificationScreen({ navigation }: Props) {
 
     // 通知をタップしたときの処理
     // このリスナーは、ユーザーが通知をタップまたは操作するたびに起動されます (アプリがフォアグラウンド、バックグラウンド、または強制終了されたときに機能します)
-    responseListener.current =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
-        // 通知をタップしたときに、画面遷移とdataを渡す
-        navigation.navigate('Detail', {
-          data: response.notification.request.content.data,
-        });
-        setCountTap((prev) => prev + 1);
-      });
+    // responseListener.current =
+    //   Notifications.addNotificationResponseReceivedListener((response) => {
+    //     console.log(response);
+    //     // 通知をタップしたときに、画面遷移とdataを渡す
+    //     navigation.navigate('Detail', {
+    //       data: response.notification.request.content.data,
+    //     });
+    //     setCountTap((prev) => prev + 1);
+    //   });
 
     return () => {
       Notifications.removeNotificationSubscription(

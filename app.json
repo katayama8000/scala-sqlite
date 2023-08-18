@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "expo-typescript",
-    "slug": "expo-typescript",
-    "version": "0.0.0",
+    "name": "try-rn",
+    "slug": "try-rn",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -19,17 +21,10 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.katayama4200.expotypescript"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "9e88f20c-7802-43f2-8e0b-cd7a27e77ca3"
-      }
-    },
-    "scheme": "myapp"
+    }
   }
 }

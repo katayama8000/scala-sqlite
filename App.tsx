@@ -1,16 +1,18 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { AllTry } from './src/page/AllTry';
+import { AllTryScreen } from './src/page/AllTry';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { TryDetail } from './src/page/TryDetail';
+import { TryDetailScreen } from './src/page/TryDetail';
 import { type StackNavigationProp } from '@react-navigation/stack';
-import { NewTry } from './src/page/NewTry';
+import { NewTryScreen } from './src/page/NewTry';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { AccountScreen } from './src/page/Account';
 
 type ScreenList = {
   AllTry: undefined;
   TryDetail: undefined;
   NewTry: undefined;
+  Account: undefined;
 };
 
 export type NavigationProp = StackNavigationProp<ScreenList>;
@@ -21,9 +23,10 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="tab" component={MyTabs} />
-        <Stack.Screen name="AllTry" component={AllTry} />
-        <Stack.Screen name="TryDetail" component={TryDetail} />
-        <Stack.Screen name="NewTry" component={NewTry} />
+        <Stack.Screen name="AllTry" component={AllTryScreen} />
+        <Stack.Screen name="TryDetail" component={TryDetailScreen} />
+        <Stack.Screen name="NewTry" component={NewTryScreen} />
+        <Stack.Screen name="Account" component={AccountScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -31,11 +34,11 @@ export default function App() {
 
 const Tab = createBottomTabNavigator();
 
-function MyTabs() {
+const MyTabs = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="AllTry" component={AllTry} />
-      <Tab.Screen name="NewTry" component={NewTry} />
+      <Tab.Screen name="AllTry" component={AllTryScreen} />
+      <Tab.Screen name="NewTry" component={NewTryScreen} />
     </Tab.Navigator>
   );
-}
+};

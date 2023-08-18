@@ -8,7 +8,7 @@ import {
   Text,
 } from 'react-native';
 
-export const NewTry: FC = () => {
+export const NewTryScreen: FC = () => {
   const [input1, setInput1] = useState('');
   const [input2, setInput2] = useState('');
   const [input3, setInput3] = useState('');

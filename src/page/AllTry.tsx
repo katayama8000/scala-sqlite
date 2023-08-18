@@ -4,13 +4,13 @@ import { Card } from '../component/Card';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../../App';
 
-interface Item {
+type Item = {
   id: number;
   title: string;
   description: string;
-}
+};
 
-export const AllTry: FC = () => {
+export const AllTryScreen: FC = () => {
   const navigation = useNavigation<NavigationProp>();
   const data: Item[] = [
     { id: 1, title: 'タイトル1', description: '説明1' },
@@ -36,6 +36,10 @@ export const AllTry: FC = () => {
     );
   };
 
+  const Empty: FC = () => {
+    return <Text>List in empty</Text>;
+  };
+
   return (
     <View>
       <Button
@@ -48,6 +52,9 @@ export const AllTry: FC = () => {
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
+        ListEmptyComponent={<Empty />}
+        onRefresh={() => console.log('loading...')}
+        refreshing={false}
       />
     </View>
   );

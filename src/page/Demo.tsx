@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import { Button, Image, View, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { storage } from '../lib/FBConfig';
-import { ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
-export const DemoScreen = () => {
+export const DemoScreen: FC = () => {
   const [image, setImage] = useState<string | null>(null);
+  const [downloadImageUrl, setDownloadImageUrl] = useState<string | null>(null);
 
   const storageRef = ref(storage, 'some-child');
 
@@ -38,11 +39,23 @@ export const DemoScreen = () => {
     return res.blob();
   };
 
+  const download = async () => {
+    const downloadURL = await getDownloadURL(storageRef);
+    setDownloadImageUrl(downloadURL);
+  };
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Button title="Pick an image from camera roll" onPress={pickImage} />
       {image && (
         <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+      )}
+      <Button title="download" onPress={download} />
+      {downloadImageUrl && (
+        <Image
+          source={{ uri: downloadImageUrl }}
+          style={{ width: 200, height: 200 }}
+        />
       )}
     </View>
   );

@@ -16,13 +16,13 @@ export const DemoScreen: FC = () => {
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
       aspect: [4, 3],
-      quality: 0.2,
+      quality: 0.2, //0.2 392バイト 0.5 837バイト
     });
 
     console.log(result);
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      //   setImage(result.assets[0].uri);
       const blob = await convertUriToBlob(result.assets[0].uri);
       //   console.log(blob);
       try {

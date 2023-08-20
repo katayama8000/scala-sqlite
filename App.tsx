@@ -8,6 +8,7 @@ import { NewTryScreen } from './src/page/NewTry';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AccountScreen } from './src/page/Account';
 import { DemoScreen } from './src/page/Demo';
+import { SignUpScreen } from './src/page/SignUp';
 
 type ScreenList = {
   AllTry: undefined;
@@ -23,6 +24,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Demo" component={DemoScreen} />
         <Stack.Screen name="AllTry" component={AllTryScreen} />
         <Stack.Screen name="Tab" component={MyTabs} />

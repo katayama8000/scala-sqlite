@@ -24,8 +24,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Demo" component={DemoScreen} />
-        <Stack.Screen name="Tab" component={MyTabs} />
         <Stack.Screen name="AllTry" component={AllTryScreen} />
+        <Stack.Screen name="Tab" component={MyTabs} />
         <Stack.Screen name="TryDetail" component={TryDetailScreen} />
         <Stack.Screen name="NewTry" component={NewTryScreen} />
         <Stack.Screen name="Account" component={AccountScreen} />

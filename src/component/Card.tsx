@@ -12,7 +12,7 @@ import {
 type Props = {
   title: string;
   description: string;
-  image?: ImageSourcePropType;
+  image?: string | null;
   onPress: ((event: GestureResponderEvent) => void) | undefined;
 };
 
@@ -20,7 +20,7 @@ export const Card: FC<Props> = ({ title, description, image, onPress }) => {
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
       <View style={styles.card}>
-        {image && <Image source={image} style={styles.image} />}
+        {image && <Image source={{ uri: image }} style={styles.image} />}
         <View style={styles.cardContent}>
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.description}>{description}</Text>

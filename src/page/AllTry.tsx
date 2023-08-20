@@ -1,8 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Button, View, Text, FlatList } from 'react-native';
 import { Card } from '../component/Card';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../../App';
+import { getDownloadURL, ref } from 'firebase/storage';
+import { storage } from '../lib/FBConfig';
 
 type Item = {
   id: number;
@@ -11,6 +13,7 @@ type Item = {
 };
 
 export const AllTryScreen: FC = () => {
+  const storageRef = ref(storage, 'some-child');
   const navigation = useNavigation<NavigationProp>();
   const data: Item[] = [
     { id: 1, title: 'タイトル1', description: '説明1' },
@@ -23,6 +26,20 @@ export const AllTryScreen: FC = () => {
     { id: 8, title: 'タイトル8', description: '説明8' },
   ];
 
+  const [downloadImageUrl, setDownloadImageUrl] = useState<string | null>(null);
+
+  const download = async () => {
+    const downloadURL = await getDownloadURL(storageRef);
+    setDownloadImageUrl(downloadURL);
+  };
+
+  useEffect(() => {
+    const f = async () => {
+      await download();
+    };
+    f();
+  }, []);
+
   const renderItem = ({ item }: { item: Item }) => {
     return (
       <Card
@@ -32,6 +49,7 @@ export const AllTryScreen: FC = () => {
         onPress={() => {
           navigation.navigate('TryDetail');
         }}
+        image={downloadImageUrl}
       />
     );
   };
@@ -41,7 +59,7 @@ export const AllTryScreen: FC = () => {
   };
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Button
         title="新規作成"
         onPress={() => {

@@ -1,21 +1,31 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { View, TextInput, Button, StyleSheet } from 'react-native';
 import { auth } from '../lib/FBConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '../../App';
 
-export const SignInScreen = () => {
+export const SignInScreen: FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const navigation = useNavigation<NavigationProp>();
 
   const handleSignIn = async () => {
     try {
-      if (email === '' || password === '') return;
+      if (email === '' || password === '') {
+        console.log('empty');
+        return;
+      }
       const user = await signInWithEmailAndPassword(auth, email, password);
       console.log(user);
+      navigation.navigate('AllTry');
     } catch (error) {
       console.error('Error signing in:', error);
     }
   };
+
+  // tattu.0310@gmail.com
+  // 109609Akg
 
   return (
     <View style={styles.container}>
@@ -32,7 +42,7 @@ export const SignInScreen = () => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button title="Sign In" onPress={handleSignIn} />
+      <Button title="Sign In" onPress={handleSignIn} color={'red'} />
     </View>
   );
 };
@@ -42,6 +52,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#f0f0f0', // 背景色を設定
   },
   input: {
     width: '80%',
@@ -50,5 +61,20 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
+    backgroundColor: '#ffffff',
+    fontSize: 16,
+    borderRadius: 20, // 丸みを持たせる
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: 'blue',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 20, // 丸みを持たせる
+  },
+  buttonText: {
+    color: 'red', // ボタンのテキスト色を設定
+    fontSize: 40,
   },
 });

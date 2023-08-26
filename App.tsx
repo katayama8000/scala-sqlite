@@ -10,6 +10,7 @@ import { AccountScreen } from './src/page/Account';
 import { DemoScreen } from './src/page/Demo';
 import { SignUpScreen } from './src/page/SignUp';
 import { SignInScreen } from './src/page/SignIn';
+import { TryingDetailScreen } from './src/page/TryingDetail';
 
 type ScreenList = {
   AllTry: undefined;
@@ -25,10 +26,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="AllTry" component={AllTryScreen} />
+        <Stack.Screen name="TryingDetail" component={TryingDetailScreen} />
         <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Demo" component={DemoScreen} />
-        <Stack.Screen name="AllTry" component={AllTryScreen} />
         <Stack.Screen name="Tab" component={MyTabs} />
         <Stack.Screen name="TryDetail" component={TryDetailScreen} />
         <Stack.Screen name="NewTry" component={NewTryScreen} />

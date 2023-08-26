@@ -25,26 +25,48 @@ export const NewTryScreen: FC = () => {
       // 目標を保存する
       const goalData = {
         goalName: goalName,
-        createdAt: dayjs,
+        createdAt: dayjs().toDate(),
         completed: false,
-        completionDate: dayjs().add(30, 'day'),
+        completionDate: dayjs().add(30, 'day').toDate(),
         feelingAfterCompletion: '',
       };
 
+      console.log({ goalData });
+
       if (!user) return;
 
-      const goalRef = collection(db, 'goals', user.uid, 'goalList');
-      const newGoalDoc = await addDoc(goalRef, goalData);
+      const goalColleltionRef = collection(db, 'goals', user.uid, 'goalList');
+      const newGoalDoc = await addDoc(goalColleltionRef, goalData);
 
-      // // アクティブな目標がない場合のみアクティブな目標を設定
-      // const activeGoalRef = doc(db, 'goals', user.uid);
-      // const activeGoalDoc = await getDoc(activeGoalRef);
-      // if (!activeGoalDoc.exists()) {
-      //   await setDoc(activeGoalRef, { activeGoal: newGoalDoc.id });
-      // }
+      // アクティブな目標がない場合のみアクティブな目標を設定
+      const activeGoalRef = doc(db, 'goals', user.uid);
+      const activeGoalDoc = await getDoc(activeGoalRef);
+      if (!activeGoalDoc.exists()) {
+        await setDoc(activeGoalRef, { activeGoal: newGoalDoc.id });
+      }
 
       console.log('目標を保存:', newGoalDoc.id);
       setGoalName(''); // 目標名をリセット
+
+      const dailyEntriesRef = collection(
+        db,
+        'goals',
+        user.uid,
+        'goalList',
+        newGoalDoc.id,
+        'dailyEntries'
+      );
+      const dailyEntryData = {
+        // feeling,
+        completed: false,
+      };
+
+      console.log(dayjs().format('MM-DD-YYYY'));
+
+      await setDoc(
+        doc(dailyEntriesRef, dayjs().format('MM-DD-YYYY')),
+        dailyEntryData
+      );
     } catch (error) {
       console.error('目標の保存に失敗しました:', error);
     }

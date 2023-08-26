@@ -1,9 +1,10 @@
 import React, { FC, useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { View, TextInput, StyleSheet } from 'react-native';
 import { auth } from '../lib/FBConfig';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { UserCredential, signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp } from '../../App';
+import { TouchableButton } from '../component/TouchableButton';
 
 export const SignInScreen: FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -16,7 +17,11 @@ export const SignInScreen: FC = () => {
         console.log('empty');
         return;
       }
-      const user = await signInWithEmailAndPassword(auth, email, password);
+      const user: UserCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       console.log(user);
       navigation.navigate('AllTry');
     } catch (error) {
@@ -42,7 +47,11 @@ export const SignInScreen: FC = () => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button title="Sign In" onPress={handleSignIn} color={'red'} />
+      <TouchableButton
+        label="Sign In"
+        backgroundColor="#339966"
+        onPress={handleSignIn}
+      />
     </View>
   );
 };

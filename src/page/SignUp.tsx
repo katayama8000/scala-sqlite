@@ -1,7 +1,8 @@
 import React, { FC, useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Touchable } from 'react-native';
 import { auth } from '../lib/FBConfig';
 import { createUserWithEmailAndPassword } from '@firebase/auth';
+import { TouchableButton } from '../component/TouchableButton';
 
 export const SignUpScreen: FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -38,7 +39,7 @@ export const SignUpScreen: FC = () => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button title="Sign Up" onPress={handleSignup} />
+      <TouchableButton label="Sign Up" onPress={handleSignup} />
     </View>
   );
 };

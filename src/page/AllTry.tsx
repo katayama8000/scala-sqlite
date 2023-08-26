@@ -27,17 +27,17 @@ export const AllTryScreen: FC = () => {
   ];
 
   const [downloadImageUrl, setDownloadImageUrl] = useState<string | null>(null);
+  const [isRefresh, setIsRefresh] = useState<boolean>(false);
 
-  const download = async () => {
+  const download = async (): Promise<void> => {
     const downloadURL = await getDownloadURL(storageRef);
     setDownloadImageUrl(downloadURL);
   };
 
   useEffect(() => {
-    const f = async () => {
+    (async () => {
       await download();
-    };
-    f();
+    })();
   }, []);
 
   const renderItem = ({ item }: { item: Item }) => {
@@ -58,6 +58,13 @@ export const AllTryScreen: FC = () => {
     return <Text>List in empty</Text>;
   };
 
+  const refreshing = () => {
+    setIsRefresh(true);
+    setTimeout(() => {
+      setIsRefresh(false);
+    }, 2000);
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <Button
@@ -71,8 +78,8 @@ export const AllTryScreen: FC = () => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
         ListEmptyComponent={<Empty />}
-        onRefresh={() => console.log('loading...')}
-        refreshing={false}
+        onRefresh={refreshing}
+        refreshing={isRefresh}
       />
     </View>
   );

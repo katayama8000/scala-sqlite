@@ -36,12 +36,12 @@ export const NewTryScreen: FC = () => {
       const goalRef = collection(db, 'goals', user.uid, 'goalList');
       const newGoalDoc = await addDoc(goalRef, goalData);
 
-      // アクティブな目標がない場合のみアクティブな目標を設定
-      const activeGoalRef = doc(db, 'goals', user.uid);
-      const activeGoalDoc = await getDoc(activeGoalRef);
-      if (!activeGoalDoc.exists()) {
-        await setDoc(activeGoalRef, { activeGoal: newGoalDoc.id });
-      }
+      // // アクティブな目標がない場合のみアクティブな目標を設定
+      // const activeGoalRef = doc(db, 'goals', user.uid);
+      // const activeGoalDoc = await getDoc(activeGoalRef);
+      // if (!activeGoalDoc.exists()) {
+      //   await setDoc(activeGoalRef, { activeGoal: newGoalDoc.id });
+      // }
 
       console.log('目標を保存:', newGoalDoc.id);
       setGoalName(''); // 目標名をリセット

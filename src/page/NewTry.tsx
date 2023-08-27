@@ -13,9 +13,13 @@ import {
 } from 'react-native';
 import { auth, db } from '../lib/FBConfig';
 import dayjs from 'dayjs';
+import { goalConverter } from '../module/converter/GoalConverter';
+import { useNavigation } from '@react-navigation/native';
+import { NavigationProp } from '../../App';
 
 export const NewTryScreen: FC = () => {
   const [goalName, setGoalName] = useState('');
+  const navigation = useNavigation<NavigationProp>();
 
   const handleSaveGoal = async () => {
     try {
@@ -37,7 +41,13 @@ export const NewTryScreen: FC = () => {
 
       if (!user) return;
 
-      const goalColleltionRef = collection(db, 'goals', user.uid, 'goalList');
+      const goalColleltionRef = collection(
+        db,
+        'goals',
+        user.uid,
+        'goals'
+      ).withConverter(goalConverter);
+
       const newGoalDoc = await addDoc(goalColleltionRef, goalData);
 
       // アクティブな目標がない場合のみアクティブな目標を設定
@@ -54,7 +64,7 @@ export const NewTryScreen: FC = () => {
         db,
         'goals',
         user.uid,
-        'goalList',
+        'goals',
         newGoalDoc.id,
         'dailyEntries'
       );
@@ -73,6 +83,8 @@ export const NewTryScreen: FC = () => {
         text1: 'Success',
         text2: 'good',
       });
+
+      navigation.navigate('TryingDetail');
     } catch (error) {
       console.error('目標の保存に失敗しました:', error);
       Toast.show({

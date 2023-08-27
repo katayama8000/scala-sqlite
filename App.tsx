@@ -17,6 +17,7 @@ type ScreenList = {
   TryDetail: undefined;
   NewTry: undefined;
   Account: undefined;
+  TryingDetail: undefined;
 };
 
 export type NavigationProp = StackNavigationProp<ScreenList>;

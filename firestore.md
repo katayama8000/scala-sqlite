@@ -7,7 +7,7 @@
 ## goals (コレクション)
 - [userId] (ドキュメント)
     - activeGoal: 目標のID (アクティブな目標のID)
-    - goalList (サブコレクション)
+    - goals (サブコレクション)
         - [goalId] (ドキュメント)
         - goalName: 目標の名前
         - createdAt: Timestamp (ゴール作成日時)

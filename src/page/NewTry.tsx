@@ -2,12 +2,14 @@
 
 import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import React, { FC, useState } from 'react';
+import Toast from 'react-native-toast-message';
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Button,
 } from 'react-native';
 import { auth, db } from '../lib/FBConfig';
 import dayjs from 'dayjs';
@@ -61,14 +63,23 @@ export const NewTryScreen: FC = () => {
         completed: false,
       };
 
-      console.log(dayjs().format('MM-DD-YYYY'));
-
       await setDoc(
         doc(dailyEntriesRef, dayjs().format('MM-DD-YYYY')),
         dailyEntryData
       );
+
+      Toast.show({
+        type: 'success',
+        text1: 'Success',
+        text2: 'good',
+      });
     } catch (error) {
       console.error('目標の保存に失敗しました:', error);
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Somthing wrong',
+      });
     }
   };
 
@@ -84,6 +95,17 @@ export const NewTryScreen: FC = () => {
       <TouchableOpacity style={styles.button} onPress={handleSaveGoal}>
         <Text style={styles.buttonText}>保存</Text>
       </TouchableOpacity>
+      <Toast />
+      <Button
+        title="toast"
+        onPress={() => {
+          Toast.show({
+            type: 'error',
+            text1: 'Hello',
+            text2: 'This is some something 👋',
+          });
+        }}
+      />
     </View>
   );
 };

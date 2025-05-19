@@ -18,9 +18,11 @@ import java.sql.Connection
     SQLiteHelper.insertData(connection)
 
     // Query and display data with table format
-    // queryDataWithTableFormat(connection)
+    println("\n===== 全データの表示 =====")
+    queryDataWithTableFormat(connection)
 
     // Query with WHERE clause
+    println("\n===== 条件検索（年齢30歳超、給与高い順） =====")
     queryWhere(connection)
   } finally {
     connection.close()
@@ -34,7 +36,7 @@ def queryDataWithTableFormat(connection: Connection): Unit = {
   val statement = connection.createStatement()
   try {
     // Query data
-    val resultSet = statement.executeQuery("SELECT id, name FROM users")
+    val resultSet = statement.executeQuery("SELECT * FROM users")
 
     // Display results
     println("\nUsers list:")
@@ -54,7 +56,9 @@ def queryWhere(connection: Connection): Unit = {
   try {
     // Query data
     val resultSet =
-      statement.executeQuery("SELECT id, name FROM users WHERE age > 25")
+      statement.executeQuery(
+        "SELECT * FROM users WHERE age > 30 ORDER BY salary DESC"
+      )
 
     // Display results
     println("\nUsers list:")

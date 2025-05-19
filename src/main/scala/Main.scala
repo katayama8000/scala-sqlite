@@ -18,7 +18,10 @@ import java.sql.Connection
     SQLiteHelper.insertData(connection)
 
     // Query and display data with table format
-    queryDataWithTableFormat(connection)
+    // queryDataWithTableFormat(connection)
+
+    // Query with WHERE clause
+    queryWhere(connection)
   } finally {
     connection.close()
   }
@@ -32,6 +35,26 @@ def queryDataWithTableFormat(connection: Connection): Unit = {
   try {
     // Query data
     val resultSet = statement.executeQuery("SELECT id, name FROM users")
+
+    // Display results
+    println("\nUsers list:")
+    println("--------------------")
+
+    // 表形式で全データを表示
+    DBUtils.printAllResultSetContents(resultSet)
+
+    println("--------------------")
+  } finally {
+    statement.close()
+  }
+}
+
+def queryWhere(connection: Connection): Unit = {
+  val statement = connection.createStatement()
+  try {
+    // Query data
+    val resultSet =
+      statement.executeQuery("SELECT id, name FROM users WHERE age > 25")
 
     // Display results
     println("\nUsers list:")

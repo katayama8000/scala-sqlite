@@ -2,31 +2,78 @@ package util
 
 import java.sql.ResultSet
 
-/** データベース関連のユーティリティ
+/** Database utilities
   */
 object DBUtils {
 
-  /** ResultSetの全内容を見やすく表形式で出力するヘルパー関数
+  /** Helper function to display ResultSet contents in a formatted table
     * @param resultSet
-    *   表示するResultSet
+    *   The ResultSet to display
     */
   def printAllResultSetContents(resultSet: ResultSet): Unit = {
     val metaData = resultSet.getMetaData
     val columnCount = metaData.getColumnCount
 
-    // 列名を出力
-    val headers = for (i <- 1 to columnCount) yield {
-      metaData.getColumnName(i)
-    }
-    println(headers.mkString("| ", " | ", " |"))
-    println("-" * (headers.mkString(" | ").length + 2))
+    // Map for calculating maximum width for each column
+    var maxWidths = Map.empty[Int, Int]
 
-    // 全ての行を処理
+    // Get column names and set their lengths as initial max widths
+    val headers = for (i <- 1 to columnCount) yield {
+      val columnName = metaData.getColumnName(i)
+      maxWidths = maxWidths + (i -> columnName.length)
+      columnName
+    }
+
+    // Get all data, cache it, and calculate maximum widths
+    val allRows = scala.collection.mutable.ArrayBuffer.empty[Vector[String]]
+
     while (resultSet.next()) {
       val rowData = for (i <- 1 to columnCount) yield {
-        Option(resultSet.getObject(i)).map(_.toString).getOrElse("null")
+        val value =
+          Option(resultSet.getObject(i)).map(_.toString).getOrElse("null")
+        // Update width if needed
+        val currentMaxWidth = maxWidths.getOrElse(i, 0)
+        if (value.length > currentMaxWidth) {
+          maxWidths = maxWidths + (i -> value.length)
+        }
+        value
       }
-      println(rowData.mkString("| ", " | ", " |"))
+      allRows += rowData.toVector
     }
+
+    // Draw separator line function
+    def drawSeparator(): Unit = {
+      val separator = (1 to columnCount).map { i =>
+        "+" + "-" * (maxWidths(i) + 2)
+      }.mkString + "+"
+      println(separator)
+    }
+
+    // Draw header row
+    drawSeparator()
+    val headerRow = (1 to columnCount).map { i =>
+      val paddedHeader = headers(i - 1).padTo(maxWidths(i), ' ')
+      "| " + paddedHeader + " "
+    }.mkString + "|"
+    println(headerRow)
+    drawSeparator()
+
+    // Draw data rows
+    for (row <- allRows) {
+      val formattedRow = (1 to columnCount).map { i =>
+        val value = row(i - 1)
+        // Right-align numbers, left-align text
+        val paddedValue = if (value.matches("\\d+(\\.\\d+)?")) {
+          " " * (maxWidths(i) - value.length) + value
+        } else {
+          value.padTo(maxWidths(i), ' ')
+        }
+        "| " + paddedValue + " "
+      }.mkString + "|"
+      println(formattedRow)
+    }
+
+    // Final separator
+    drawSeparator()
   }
 }

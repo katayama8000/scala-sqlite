@@ -2,7 +2,7 @@ import db.SQLiteHelper
 import util.DBUtils
 import java.sql.Connection
 
-/** メインアプリケーション
+/** Main application
   */
 @main def hello(): Unit =
   println("Hello SQLite from Scala 3!")
@@ -18,19 +18,19 @@ import java.sql.Connection
     SQLiteHelper.insertData(connection)
 
     // Query and display data with table format
-    println("\n===== 全データの表示 =====")
+    println("\n===== All Data =====")
     queryDataWithTableFormat(connection)
 
     // Query with WHERE clause
-    println("\n===== 条件検索（年齢30歳超、給与高い順） =====")
+    println("\n===== Filtered Data (Age > 30, sorted by salary) =====")
     queryWhere(connection)
   } finally {
     connection.close()
   }
 
-/** データを取得して表形式で表示する
+/** Query data and display in table format
   * @param connection
-  *   データベース接続
+  *   Database connection
   */
 def queryDataWithTableFormat(connection: Connection): Unit = {
   val statement = connection.createStatement()
@@ -40,12 +40,10 @@ def queryDataWithTableFormat(connection: Connection): Unit = {
 
     // Display results
     println("\nUsers list:")
-    println("--------------------")
 
-    // 表形式で全データを表示
+    // Display all data in table format
     DBUtils.printAllResultSetContents(resultSet)
 
-    println("--------------------")
   } finally {
     statement.close()
   }
@@ -62,12 +60,10 @@ def queryWhere(connection: Connection): Unit = {
 
     // Display results
     println("\nUsers list:")
-    println("--------------------")
 
-    // 表形式で全データを表示
+    // Display all data in table format
     DBUtils.printAllResultSetContents(resultSet)
 
-    println("--------------------")
   } finally {
     statement.close()
   }

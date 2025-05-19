@@ -2,13 +2,13 @@ package db
 
 import java.sql.{Connection, DriverManager, Statement}
 
-/** SQLite操作のためのヘルパークラス
+/** Helper class for SQLite operations
   */
 object SQLiteHelper {
 
-  /** SQLiteデータベースに接続する
+  /** Connect to SQLite database
     * @return
-    *   接続オブジェクト
+    *   Connection object
     */
   def connectToSQLite(): Connection = {
     // Use in-memory database
@@ -24,9 +24,9 @@ object SQLiteHelper {
     connection
   }
 
-  /** テーブルを作成する
+  /** Create tables
     * @param connection
-    *   データベース接続
+    *   Database connection
     */
   def createTable(connection: Connection): Unit = {
     val statement = connection.createStatement()
@@ -50,53 +50,53 @@ object SQLiteHelper {
     }
   }
 
-  /** サンプルデータを挿入する
+  /** Insert sample data
     * @param connection
-    *   データベース接続
+    *   Database connection
     */
   def insertData(connection: Connection): Unit = {
     val statement = connection.createStatement()
     try {
-      // サンプルデータ挿入（全てのフィールドを含む）
+      // Insert sample data with all fields
       statement.execute("""
         INSERT INTO users (name, age, email, department, salary, hire_date, is_manager) 
-        VALUES ('John Doe', 25, 'john.doe@example.com', '開発部', 450000.0, '2020-01-15', 0)
+        VALUES ('John Doe', 25, 'john.doe@example.com', 'Development', 450000.0, '2020-01-15', 0)
       """)
       statement.execute("""
         INSERT INTO users (name, age, email, department, salary, hire_date, is_manager) 
-        VALUES ('Jane Smith', 30, 'jane.smith@example.com', '人事部', 550000.0, '2018-05-20', 1)
+        VALUES ('Jane Smith', 30, 'jane.smith@example.com', 'Human Resources', 550000.0, '2018-05-20', 1)
       """)
       statement.execute("""
         INSERT INTO users (name, age, email, department, salary, hire_date, is_manager) 
-        VALUES ('Bob Johnson', 22, 'bob.johnson@example.com', '開発部', 380000.0, '2022-10-05', 0)
+        VALUES ('Bob Johnson', 22, 'bob.johnson@example.com', 'Development', 380000.0, '2022-10-05', 0)
       """)
       statement.execute("""
         INSERT INTO users (name, age, email, department, salary, hire_date, is_manager) 
-        VALUES ('Alice Brown', 35, 'alice.brown@example.com', '営業部', 620000.0, '2015-03-01', 1)
+        VALUES ('Alice Brown', 35, 'alice.brown@example.com', 'Sales', 620000.0, '2015-03-01', 1)
       """)
       statement.execute("""
         INSERT INTO users (name, age, email, department, salary, hire_date, is_manager) 
-        VALUES ('Charlie Davis', 28, 'charlie.davis@example.com', '開発部', 480000.0, '2019-07-12', 0)
+        VALUES ('Charlie Davis', 28, 'charlie.davis@example.com', 'Development', 480000.0, '2019-07-12', 0)
       """)
       statement.execute("""
         INSERT INTO users (name, age, email, department, salary, hire_date, is_manager) 
-        VALUES ('Emma Wilson', 32, 'emma.wilson@example.com', '営業部', 530000.0, '2017-11-30', 0)
+        VALUES ('Emma Wilson', 32, 'emma.wilson@example.com', 'Sales', 530000.0, '2017-11-30', 0)
       """)
       statement.execute("""
         INSERT INTO users (name, age, email, department, salary, hire_date, is_manager) 
-        VALUES ('Frank Miller', 45, 'frank.miller@example.com', '経理部', 720000.0, '2010-04-18', 1)
+        VALUES ('Frank Miller', 45, 'frank.miller@example.com', 'Finance', 720000.0, '2010-04-18', 1)
       """)
       statement.execute("""
         INSERT INTO users (name, age, email, department, salary, hire_date, is_manager) 
-        VALUES ('Grace Lee', 27, 'grace.lee@example.com', '開発部', 460000.0, '2021-02-28', 0)
+        VALUES ('Grace Lee', 27, 'grace.lee@example.com', 'Development', 460000.0, '2021-02-28', 0)
       """)
       statement.execute("""
         INSERT INTO users (name, age, email, department, salary, hire_date, is_manager) 
-        VALUES ('Henry Garcia', 33, 'henry.garcia@example.com', '経理部', 540000.0, '2018-09-14', 0)
+        VALUES ('Henry Garcia', 33, 'henry.garcia@example.com', 'Finance', 540000.0, '2018-09-14', 0)
       """)
       statement.execute("""
         INSERT INTO users (name, age, email, department, salary, hire_date, is_manager) 
-        VALUES ('Ivy Robinson', 29, 'ivy.robinson@example.com', '人事部', 490000.0, '2019-12-03', 0)
+        VALUES ('Ivy Robinson', 29, 'ivy.robinson@example.com', 'Human Resources', 490000.0, '2019-12-03', 0)
       """)
 
       println("Data inserted successfully")

@@ -18,12 +18,29 @@ import java.sql.Connection
     SQLiteHelper.insertData(connection)
 
     // Query and display data with table format
-    println("\n===== All Data =====")
-    queryDataWithTableFormat(connection)
+    // println("\n===== All Data =====")
+    // queryDataWithTableFormat(connection)
 
     // Query with WHERE clause
-    println("\n===== Filtered Data (Age > 30, sorted by salary) =====")
-    queryWhere(connection)
+    // println("\n===== Filtered Data (Age > 30, sorted by salary) =====")
+    // queryWhere(connection)
+
+    // Query with GROUP BY clause
+    // println("\n===== Grouped Data (Count by Department) =====")
+    // queryGroupBy(connection)
+
+    // Query with GROUP BY and AVG
+    // println("\n===== Average Salary by Department =====")
+    // queryAverageSalaryGroupByDepartment(connection)
+
+    // Query highest salary
+    // println("\n===== Highest Salary =====")
+    // queryHighestSalary(connection)
+
+    // Query with HAVING clause
+    println("\n===== Filtered Grouped Data (Count > 2) =====")
+    queryHaving(connection)
+
   } finally {
     connection.close()
   }
@@ -37,9 +54,6 @@ def queryDataWithTableFormat(connection: Connection): Unit = {
   try {
     // Query data
     val resultSet = statement.executeQuery("SELECT * FROM users")
-
-    // Display results
-    println("\nUsers list:")
 
     // Display all data in table format
     DBUtils.printAllResultSetContents(resultSet)
@@ -58,8 +72,75 @@ def queryWhere(connection: Connection): Unit = {
         "SELECT * FROM users WHERE age > 30 ORDER BY salary DESC"
       )
 
-    // Display results
-    println("\nUsers list:")
+    // Display all data in table format
+    DBUtils.printAllResultSetContents(resultSet)
+
+  } finally {
+    statement.close()
+  }
+}
+
+def queryGroupBy(connection: Connection): Unit = {
+  val statement = connection.createStatement()
+  try {
+    // Query data
+    val resultSet =
+      statement.executeQuery(
+        "SELECT department, COUNT(*) FROM users GROUP BY department"
+      )
+
+    // Display all data in table format
+    DBUtils.printAllResultSetContents(resultSet)
+
+  } finally {
+    statement.close()
+  }
+}
+
+def queryAverageSalaryGroupByDepartment(
+    connection: Connection
+): Unit = {
+  val statement = connection.createStatement()
+  try {
+    // Query data
+    val resultSet =
+      statement.executeQuery(
+        "SELECT department, AVG(salary) FROM users GROUP BY department"
+      )
+
+    // Display all data in table format
+    DBUtils.printAllResultSetContents(resultSet)
+
+  } finally {
+    statement.close()
+  }
+}
+
+def queryHighestSalary(connection: Connection): Unit = {
+  val statement = connection.createStatement()
+  try {
+    // Query data
+    val resultSet =
+      statement.executeQuery("SELECT * FROM users ORDER BY salary DESC LIMIT 1")
+
+    // Display all data in table format
+    DBUtils.printAllResultSetContents(resultSet)
+
+  } finally {
+    statement.close()
+  }
+}
+
+def queryHaving(
+    connection: Connection
+): Unit = {
+  val statement = connection.createStatement()
+  try {
+    // Query data
+    val resultSet =
+      statement.executeQuery(
+        "SELECT department, COUNT(*) FROM users GROUP BY department HAVING COUNT(*) > 2"
+      )
 
     // Display all data in table format
     DBUtils.printAllResultSetContents(resultSet)

@@ -18,8 +18,8 @@ import java.sql.Connection
     SQLiteHelper.insertData(connection)
 
     // Query and display data with table format
-    // println("\n===== All Data =====")
-    // queryDataWithTableFormat(connection)
+    println("\n===== All Data =====")
+    queryDataWithTableFormat(connection)
 
     // Query with WHERE clause
     // println("\n===== Filtered Data (Age > 30, sorted by salary) =====")

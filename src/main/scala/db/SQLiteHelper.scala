@@ -104,4 +104,63 @@ object SQLiteHelper {
       statement.close()
     }
   }
+
+  /** Create tables for practicing JOIN operations
+    * @param connection
+    *   Database connection
+    */
+  def createJoinTables(connection: Connection): Unit = {
+    val statement = connection.createStatement()
+    try {
+      // Create departments table
+      statement.execute("""
+        CREATE TABLE IF NOT EXISTS departments (
+          department_id INTEGER PRIMARY KEY AUTOINCREMENT,
+          department_name TEXT NOT NULL,
+          location TEXT,
+          manager_id INTEGER,
+          budget REAL
+        )
+      """)
+
+      println("JOIN tables created successfully")
+    } finally {
+      statement.close()
+    }
+  }
+
+  /** Insert sample data into JOIN tables
+    * @param connection
+    *   Database connection
+    */
+  def insertJoinData(connection: Connection): Unit = {
+    val statement = connection.createStatement()
+    try {
+      // Insert department data
+      statement.execute("""
+        INSERT INTO departments (department_name, location, manager_id, budget) 
+        VALUES ('Development', 'Tokyo', 1, 5000000.0)
+      """)
+      statement.execute("""
+        INSERT INTO departments (department_name, location, manager_id, budget) 
+        VALUES ('Human Resources', 'Osaka', 2, 2500000.0)
+      """)
+      statement.execute("""
+        INSERT INTO departments (department_name, location, manager_id, budget) 
+        VALUES ('Sales', 'Fukuoka', 4, 4000000.0)
+      """)
+      statement.execute("""
+        INSERT INTO departments (department_name, location, manager_id, budget) 
+        VALUES ('Finance', 'Tokyo', 7, 3500000.0)
+      """)
+      statement.execute("""
+        INSERT INTO departments (department_name, location, manager_id, budget) 
+        VALUES ('Marketing', 'Nagoya', NULL, 3000000.0)
+      """)
+
+      println("JOIN data inserted successfully")
+    } finally {
+      statement.close()
+    }
+  }
 }
